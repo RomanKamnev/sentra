@@ -1,0 +1,5 @@
+kafka-python
+flask
+scikit-learn
+pandas
+pyyaml

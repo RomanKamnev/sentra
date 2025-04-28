@@ -1,0 +1,23 @@
+Business Source License 1.1
+
+Parameters
+
+Licensor: Roman Kamnev
+Licensed Work: Sentra SIEM Platform (the "Licensed Work")
+Additional Use Grant: For non-production and non-commercial use only
+Change Date: 2028-01-01
+Change License: Apache License 2.0
+
+Terms
+
+The Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-production use of the Licensed Work.
+
+Production use of the Licensed Work requires a separate commercial license. For the purposes of this license, “production use” includes use of the Licensed Work to provide any service to third parties, to operate in a commercial environment, or as part of a revenue-generating activity.
+
+Upon the Change Date, the Licensed Work will be made available under the Change License, as indicated above.
+
+Unless you have received a separate commercial license, this license does not permit production use. This license does not grant any right to use the trademarks, service marks, or trade names of the Licensor.
+
+This License is governed by the laws of the jurisdiction where the Licensor is established, without regard to conflict of law principles.
+
+Full license text: https://mariadb.com/bsl11/

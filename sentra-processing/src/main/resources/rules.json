@@ -1,0 +1,39 @@
+{
+  "rules": [
+    {
+      "event_type": "ssh",
+      "min_failures": 5,
+      "time_window_seconds": 60,
+      "severity": "high",
+      "action": "alert"
+    },
+    {
+      "event_type": "ftp",
+      "min_failures": 3,
+      "time_window_seconds": 60,
+      "severity": "medium",
+      "action": "log"
+    },
+    {
+      "event_type": "ransomware_scan",
+      "min_failures": 1,
+      "time_window_seconds": 30,
+      "severity": "critical",
+      "action": "alert"
+    },
+    {
+      "event_type": "web_login_failed",
+      "min_failures": 5,
+      "time_window_seconds": 60,
+      "severity": "high",
+      "action": "alert"
+    },
+    {
+      "event_type": "credential_stuffing",
+      "min_failures": 10,
+      "time_window_seconds": 60,
+      "severity": "critical",
+      "action": "alert"
+    }
+  ]
+}

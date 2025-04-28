@@ -1,0 +1,9 @@
+{
+  "fields": {
+    "ip": "ip",
+    "failures": "failures",
+    "timestamp": "timestamp",
+    "event_type": "event_type",
+    "username": "username"
+  }
+}
