@@ -1,0 +1,51 @@
+[Raw Logs / Security Events]
+             │
+             ▼
+   [Kafka Ingestion Layer]
+             │
+             ▼
+   [Apache Flink Processing]
+             │
+ ┌────────────┴────────────┐
+ │                         │
+ ▼                         ▼
+[Rule Engine]        [Snapshot Aggregator]
+(Basic Threat Rules)   (Behavior Windows)
+ │                         │
+ ▼                         ▼
+[ML Anomaly Detection] [Embedding Generator]
+ (Speed/Geo Models)    (FastAPI + Sentence Transformers)
+ │                         │
+ ▼                         ▼
+[Kafka: alerts]       [Qdrant: user_behavior Collection]
+ │                         │
+ └────────────┬────────────┘
+              ▼
+     [Flink AI Enrichment Module]
+              │
+              ▼
+     [Kafka: enriched_alerts]
+              │
+              ▼
+     [LLM Agent (FastAPI Service)]
+      - Summarization
+      - Threat Recommendation
+      - Severity Classification
+      - Confirmable Actions
+              │
+              ▼
+ [User Portal / Confirmable Actions UI]
+              │
+              ▼
+ [Automated Remediation Triggers]
+
++------------------------------------+
+| Monitoring & Observability Layer   |
+| (Prometheus, Grafana, LLM Tracing, |
+|  Embedding Drift Monitoring)       |
++------------------------------------+
+
++------------------------------------------+
+| Data Warehouse (Postgres/ClickHouse MVP) |
+| (Analytics, Reporting, Audit Trails)     |
++------------------------------------------+

@@ -1,15 +1,15 @@
-# Sentra Project — Strategic Summary (April 2025)
+# Sentra Project — Strategic Summary (Updated, April–May 2025)
 
 ## ✨ Key Project Strategy
-- **Main Objective**: Build a real, working MVP of a real-time AI-driven threat detection platform (Kafka + Flink + ML + LLM + Confirmable Actions) by the end of summer 2025.
+- **Main Objective**: Build a real, working MVP of a real-time AI-driven threat detection platform (Kafka + Flink + ML + Eventless AI + LLM + Confirmable Actions) by the end of summer 2025.
 - **Target Pre-Seed Window**: **October–November 2025** (main active fundraising period).
-- **Focus**: Core functionality, security hardening, professional demo presentation, early cloud readiness, initial light RAG layer.
+- **Focus**: Core functionality, security hardening, professional demo presentation, early cloud readiness, first Eventless AI layer, initial RAG + Advanced LLM Observability Layer.
 
-## 📅 Timeline Plan
+## 🗕️ Timeline Plan
 | Phase | Period | Focus |
 |:-----|:------|:-----|
 | Preparation | Now → 2 June 2025 | Environment setup, architecture sketching, log generation scripts |
-| Core Development | 3 June – 30 July 2025 | MVP: Ingestion + Rule Engine + ML + LLM Agent + Confirmable Actions + Security + Light RAG |
+| Core Development | 3 June – 30 July 2025 | MVP: Ingestion + Rule Engine + ML + Eventless AI + LLM Agent + Confirmable Actions + Security + Light RAG |
 | Finalization and Demo | 1 August – 25 August 2025 | Demo video, documentation, polishing, pitch deck preparation |
 | Launch | September 2025 | Start showing to investors, preparing for meetings |
 | Fundraising | October–November 2025 | Active pre-seed fundraising |
@@ -19,83 +19,103 @@
 - **Apache Flink** for real-time processing
 - **Rule Engine**: 3–5 basic threat rules
 - **ML Anomaly Detectors**: speed, geolocation anomalies
-- **LLM Agent**: Summarization + Recommendation + Severity + Action Initiation after user confirmation
-- **Confirmable Actions**: user confirms LLM-suggested mitigations, after which automated mitigation actions are triggered
-- **Monitoring**: Prometheus + Grafana for ingestion pipeline observability
-- **Cloud Part**: LLM API deployed to cheap VPS (~$5-10/month)
+- **Eventless AI Layer**: behavior embedding generation + anomaly detection via Qdrant
+- **LLM Agent**: Summarization + Recommendation + Severity + Confirmable Action Initiation
+- **Confirmable Actions**: user confirms LLM-suggested mitigations before automated actions
+- **Monitoring**: Prometheus + Grafana + LLM observability (token tracing, latency)
+- **Data Warehouse (DWH)**: foundation for future aggregation and analytics (PostgreSQL or ClickHouse MVP)
 - **Light RAG Layer**: Qdrant Cloud (~$20–30/month) for retrieval-augmented LLM context
 
 ## 🛡️ Security Focus Areas
-- Input sanitation in ingestion pipelines
-- API protection (Rate limiting, CORS, minimal authentication)
-- Confirmable Action Validation
-- Secure handling of AI-generated responses
-- Future-ready architecture for cloud security (IAM, Secrets Management)
+- Input sanitation and validation
+- API protection (Rate limiting, CORS, minimal auth)
+- Confirmable Action validation and audit
+- Secure AI response handling
+- Eventless AI behavior monitoring for stealthy threats
+- Foundation for Cloud IAM, Secrets Management for production scaling
 
 ## ☁️ Cloud Deployment Strategy
-- **MVP stage**: LLM Agent + RAG Layer deployed in cloud
-- **Post-funding**: full migration to managed Kubernetes (EKS/GKE/AKS)
+- **MVP stage**: LLM Agent + RAG Layer deployed to a small VPS (cheap scalable infra)
+- **Post-funding**: migrate to managed Kubernetes (EKS/GKE/AKS) with full multi-node clustering
 
 ## 🔧 Working Mode
 - **Active Phase Start**: 3 June 2025
 - **Workload**: 60 hours/week
 - **Rhythm**:
-    - Coding: 5–6 hours/day
-    - Security learning: 2 hours/day
-    - Testing/validation/RAG integration: 2–3 hours/day
+  - Coding: 5–6 hours/day
+  - Security and ML/AI learning: 2 hours/day
+  - Testing, validation, observability tuning: 2–3 hours/day
 
 ## 💪 Strategic Strengths
-- Early real MVP + AI integration
-- Cloud LLM component + Light RAG for retrieval-augmented generation
-- Security-focused architecture from MVP phase
-- Early enough entrance into the fundraising cycle (September shows, October–November closing)
+- Real MVP + full-stack AI integration (ML + Eventless AI + LLM)
+- Cloud-deployed LLM component with RAG support
+- Security-first design approach from MVP phase
+- Advanced Observability Layer (event/embedding/LLM latency tracking)
+- Early pre-seed fundraising window positioning (September shows, October–November closing)
 
 ## 🔄 Adjustments and Optimizations
-- Start shifted from May to 3 June to optimize costs and match active working phase with summer.
-- Completion of MVP in late July leaves August free for polishing, demo preparation, and investor approach preparation.
-- Planned addition of a Light RAG (Retrieval-Augmented Generation) Layer to enhance AI context understanding.
+- Active phase delayed to 3 June to maximize infrastructure efficiency.
+- Eventless AI added as a second detection layer (complementing classic ML models).
+- Data Warehouse (DWH) layer introduced to prepare for scalable analytics.
+- Advanced LLM Observability (token tracing, explainability latency) added for future differentiation.
 
 ## 📋 ML Models: Rules and Justification
-- **Выбрано 2 модели аномалий:**
-    - **Speed Anomaly Detection** — проверка скорости событий от одного пользователя/IP (например, 10 логинов за 5 секунд).
-    - **Geolocation Anomaly Detection** — обнаружение резких смен локаций (например, логин с США, затем через минуту с Китая).
-- **Почему выбраны именно они:**
-    - Они покрывают **наиболее частые реальные угрозы** (brute force атаки, компрометация аккаунта).
-    - Реализация относительно простая и стабильная для ранней версии проекта.
-    - Они позволяют без тяжелой модели быстро валидировать работоспособность ingestion + detection пайплайна.
+- **Classic anomaly detection models:**
+  - **Speed Anomaly Detection** — detecting excessive login attempts within short periods.
+  - **Geolocation Anomaly Detection** — detecting improbable location jumps in short time.
+- **Why:**  
+  Fast implementation, covers real threats (account compromises, brute force attacks), simple validation of ingestion + rule pipelines.
 
-## 📋 Подробная реализация LLM с обоснованием
-- **Функции LLM:**
-    - Краткая текстовая сводка инцидента (Summarization).
-    - Рекомендация действия (Recommendation).
-    - Классификация серьёзности инцидента (Severity Classification).
-    - Инициация действий после подтверждения пользователя (Action Initiation).
-- **Почему такой выбор:**
-    - Позволяет сразу продемонстрировать **ценность AI** без построения сложных RAG-систем на старте.
-    - Дает возможность строить **Confirmable Actions Flow**.
-    - Логика легко масштабируется на более сложные версии пайплайнов в будущем.
-- **Техническая реализация:**
-    - Отдельный FastAPI сервис.
-    - Минимальная валидация входных данных.
-    - Отправка запросов к облачной LLM модели (через API OpenAI или Anthropic).
-    - Ответ в формате JSON: summary, recommendation, severity.
-    - После подтверждения пользователем инициируется автоматизированное действие на стороне системы.
-- **Плюсы:**
-    - Минимальная задержка ответа.
-    - Простая интеграция с Flink/Kafka пайплайном.
-    - Легкая миграция к более продвинутым мульти-агентным системам в будущем.
+## 📋 Eventless AI: Purpose and Architecture
+- **Functionality:**
+  - Aggregate user/server behavior snapshots over time windows.
+  - Generate embeddings using Sentence Transformers.
+  - Store and search embeddings in Qdrant for nearest neighbor analysis.
+  - Trigger AI-based anomaly alerts if behavior strongly deviates from typical patterns.
 
-## 🧠 Training Service on Large Datasets
-- **Будет предусмотрено в процессе работы над MVP:**
-    - ЧАСТИЧНОЕ обучение моделей на собранных больших датасетах до окончания разработки MVP.
-    - Создание синтетических и реальных логов для обогащения тренировочного датасета.
-    - Использование результатов обучения для настройки и улучшения базовых anomaly detection моделей.
-- **Почему:**
-    - Это позволит сразу заложить сильную основу качества моделей.
-    - Будет снижать количество ложных срабатываний в реальном времени.
-    - Подготовит основу для автоматического адаптивного обучения после запуска проекта.
+- **Architecture:**
+    ```
+    Kafka → Flink Snapshots → Embedding Generator (FastAPI) → Qdrant Storage
+                                       ↳
+                                Anomaly Detection (isolation/NN deviation)
+                                       ↳
+                                  Kafka (ai_alerts) → Flink Enrichment → LLM Summarization
+    ```
+
+- **Why important:**
+  - Enables detection of stealth attacks not captured by classic rules.
+  - Provides explainability layer based on behavioral deviation.
+  - Future-proofs SIEM for Eventless AI era (embedding-driven detection).
+
+## 📋 Advanced LLM Layer: Functions and Enhancements
+- **Light RAG Contextualization:**  
+  Enhance LLM reasoning with context fetched from Qdrant (RAG mini-layer).
+
+- **LLM Observability:**
+  - Token-level latency tracking.
+  - Prompt → embedding → generation observability.
+  - Incident traces: chain from alert to LLM recommendation.
+
+- **Why:**  
+  Critical for future enterprise credibility: traceability, reliability, and compliance-ready LLM usage.
+
+## 🧬 Training Service on Large Datasets
+- **Partial model training** on synthetically generated and real logs during MVP phase.
+- Focused improvement of ML models for reducing false positives.
+- Prepares base for semi-automated online learning post-MVP.
+
+# 🔥 Summary of Key Enhancements Since April Plan
+| Enhancement | Purpose |
+|:------------|:--------|
+| Eventless AI Layer (Embeddings + Qdrant) | Behavior anomaly detection beyond classic event rules |
+| Data Warehouse (Postgres or ClickHouse MVP) | Structured storage for analytics, reporting, audit trails |
+| Advanced LLM Observability | Token tracing, response latency, chain-of-reasoning visualization |
+| Enhanced Security Hardening | IAM, API protection, Secrets Management for cloud scaling |
 
 ---
 
-> **Next Step:** Prepare daily/weekly execution templates to maintain optimal rhythm after the 3 June project start.
-
+# **Next Step:**
+> Prepare detailed task breakdowns for the Eventless AI and DWH integration starting from June active phase.
+> 
+> Рассмотреть целесообразность 10 минутного окна(м.б. нужно для eventless AI)
+> Предусмотреть OpenSource LLM

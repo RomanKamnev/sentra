@@ -1,0 +1,32 @@
+[
+  {
+    "category": "credential_stuffing",
+    "severity": "high",
+    "policy": "If credential stuffing is detected from a single IP, block immediately to prevent credential compromise."
+  },
+  {
+    "category": "brute_force",
+    "severity": "high",
+    "policy": "If SSH brute-force attack is detected with more than 5 failures within 10 minutes, block the source IP immediately."
+  },
+  {
+    "category": "port_scan",
+    "severity": "medium",
+    "policy": "Monitor the source IP for escalation after detecting initial port scanning activity."
+  },
+  {
+    "category": "account_probe",
+    "severity": "high",
+    "policy": "If multiple login attempts are made using unusual or non-existent usernames, investigate immediately, even if no login failures occur."
+  },
+  {
+    "category": "web_login_failed",
+    "severity": "medium",
+    "policy": "Monitor web login failures from single or multiple IPs unless the failure rate increases significantly."
+  },
+  {
+    "category": "generic_info",
+    "severity": "info",
+    "policy": "If an incident is classified as INFO and no significant threat indicators are present, ignore the event to avoid unnecessary investigations."
+  }
+]

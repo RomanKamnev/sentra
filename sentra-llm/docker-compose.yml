@@ -1,0 +1,12 @@
+sentra-llm:
+  build: ./sentra-llm
+  depends_on:
+    - kafka
+  environment:
+    - KAFKA_BROKER=kafka:9092
+    - ALERTS_TOPIC=alerts
+    - GROUP_ID=sentra-llm-agent
+    - LLM_PROVIDER=openai
+    - OPENAI_API_KEY=your-openai-api-key-here
+    - OPENAI_MODEL=gpt-3.5-turbo
+  restart: always
